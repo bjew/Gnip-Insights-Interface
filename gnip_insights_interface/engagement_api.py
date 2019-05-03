@@ -176,6 +176,24 @@ def combine_results(results,this_result,groupings):
                             results[grouping_name][level_1_key][engagement][date] += int(count)
                         else:
                             results[grouping_name][level_1_key][engagement][date] = int(count)
+
+        # Missing from master branch -- grouping of 4
+        if len(grouping['group_by']) == 4:
+            # this is a tweet-ID:time-bucket:time-bucket:engagement:count type of result
+            for level_1_key in this_result[grouping_name]:
+                if level_1_key not in results[grouping_name]:
+                    results[grouping_name][level_1_key] = {}
+                for engagement,date_data in this_result[grouping_name][level_1_key].items(): 
+                    if engagement not in results[grouping_name][level_1_key]:
+                        results[grouping_name][level_1_key][engagement] = {}
+                    for date,hour_no in this_result[grouping_name][level_1_key][engagement].items():
+                        if date not in results[grouping_name][level_1_key]:
+                            results[grouping_name][level_1_key][engagement][date] = {}
+                        for hour,count in hour_no.items():
+                            if hour in results[grouping_name][level_1_key][engagement][date]:
+                                results[grouping_name][level_1_key][engagement][date][hour] += int(count)
+                            else:
+                                results[grouping_name][level_1_key][engagement][date][hour] = int(count)
     
     # do keys not in groupings, such as errors
     for other_key in this_result.keys():
