@@ -110,10 +110,10 @@ def make_request(post_data,endpoint):
             headers = json_header, 
             data = json.dumps( post_data )
             )
-    print("Request: {}".format(request))
-    print(request.status_code)
-    print(request.headers)
-    print("request end")
+    logger.info("Request: {}".format(request))
+    logger.info(request.status_code)
+    logger.info(request.headers)
+    logger.info("request end")
     return request.json()
         
 
