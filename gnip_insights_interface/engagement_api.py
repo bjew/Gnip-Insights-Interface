@@ -111,8 +111,8 @@ def make_request(post_data,endpoint):
             data = json.dumps( post_data )
             )
     print("Request: {}".format(request))
-    print(response.status_code)
-    print(response.headers)
+    print(request.status_code)
+    print(request.headers)
     print("request end")
     return request.json()
         
